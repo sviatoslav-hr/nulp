@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>landscape</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: auto;
+        }
+
+        #landscape {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+            background-color: #009dc1;
+        }
+
+        #landscape > div.landscapePart {
+            max-height: calc(100% - 100px);
+            min-height: 100px;
+            position: absolute;
+            bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="landscape">
+
+</div>
+</body>
+</html>
+<script>
+    const landscape = document.getElementById('landscape');
+    const step = 1;
+    const width = 1;
+    const timeout = 5;
+
+    function addLandscapePart(previousHeight, previousLeft) {
+        let newDiv = document.createElement('div');
+        newDiv.classList.add('landscapePart');
+        let randomInt = getRandomInt(0, 3);
+        if (randomInt === 0) {
+            previousHeight += step;
+        } else if (randomInt === 1) {
+            previousHeight -= step;
+        }
+        newDiv.style.backgroundColor = 'green';
+        if (previousHeight < 100) {
+            previousHeight = 100;
+            console.log(previousHeight);
+            newDiv.style.backgroundColor = 'red';
+        }
+        previousLeft += width;
+        newDiv.style.left = previousLeft + 'px';
+        newDiv.style.height = previousHeight + 'px';
+        newDiv.style.width = width + 'px';
+        landscape.appendChild(newDiv);
+        setTimeout(() => addLandscapePart(previousHeight, previousLeft), timeout);
+    }
+
+    function getRandomInt(min, max) {
+        if (min > max) return -1;
+        return Math.floor(Math.floor(min) + Math.random() * Math.floor(max - min));
+    }
+
+    addLandscapePart(150, 10);
+
+</script>
