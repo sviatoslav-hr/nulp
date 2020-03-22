@@ -3,7 +3,7 @@ const GraphEdge = require('../lab2/graph/GraphEdge');
 const Graph = require('../lab2/graph/Graph');
 const bfTravellingSalesman = require('./bfTravellingSalesman');
 
-function test() {
+function run() {
 
     const vertexA = new GraphVertex('A');
     const vertexB = new GraphVertex('B');
@@ -28,6 +28,7 @@ function test() {
 
     const salesmanPath = bfTravellingSalesman(graph);
 
-    console.log(salesmanPath);
+    console.log(salesmanPath.map(vertex => vertex.value).join(' => '));
 }
-test();
+
+run();
