@@ -2,9 +2,12 @@
   "name": "dyscret_models_in_system_programming",
   "version": "1.0.0",
   "description": "",
-  "main": "lab1/index.old.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lab1": "node lab1/index.js",
+    "lab2": "node lab2/index.js",
+    "lab3": "node lab3/index.js",
+    "lab4": "node lab4/index.js",
+    "lab5": "node lab5/index.js"
   },
   "dependencies": {
     "datascript": "^0.18.10",
@@ -13,6 +16,6 @@
     "union-find": "0.0.4"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Sviatoslav Khrystyna",
+  "license": "NULP"
 }
