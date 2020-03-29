@@ -1,34 +1,33 @@
-const GraphVertex = require('../lab2/graph/GraphVertex');
-const GraphEdge = require('../lab2/graph/GraphEdge');
-const Graph = require('../lab2/graph/Graph');
+const { Vertex, Edge, Graph } = require('../lab2/graph');
 const bfTravellingSalesman = require('./bfTravellingSalesman');
+const INIT_DATA = require('./data');
 
 function run() {
+  const graph = readGraph();
 
-    const vertexA = new GraphVertex('A');
-    const vertexB = new GraphVertex('B');
-    const vertexC = new GraphVertex('C');
-    const vertexD = new GraphVertex('D');
+  const salesmanPath = bfTravellingSalesman(graph);
 
-    const edgeAB = new GraphEdge(vertexA, vertexB, 10);
-    const edgeAC = new GraphEdge(vertexA, vertexC, 35);
-    const edgeAD = new GraphEdge(vertexA, vertexD, 30);
-    const edgeBC = new GraphEdge(vertexB, vertexC, 30);
-    const edgeBD = new GraphEdge(vertexB, vertexD, 15);
-    const edgeCD = new GraphEdge(vertexC, vertexD, 30);
+  printResults(salesmanPath);
+}
 
-    const graph = new Graph(false);
-    graph
-        .addEdge(edgeAB)
-        .addEdge(edgeBD)
-        .addEdge(edgeCD)
-        .addEdge(edgeBC)
-        .addEdge(edgeAC)
-        .addEdge(edgeAD);
+function printResults(vertexes) {
+  console.log(vertexes.map(vertex => vertex.value).join(' => '));
+}
 
-    const salesmanPath = bfTravellingSalesman(graph);
-
-    console.log(salesmanPath.map(vertex => vertex.value).join(' => '));
+function readGraph(data = INIT_DATA) {
+  const vertexes = new Map();
+  const graph = new Graph(false);
+  data.forEach(([vertex1, vertex2, weight]) => {
+    if (!vertexes.has(vertex1)) {
+      vertexes.set(vertex1, new Vertex(vertex1));
+    }
+    if (!vertexes.has(vertex2)) {
+      vertexes.set(vertex2, new Vertex(vertex2));
+    }
+    const edge = new Edge(vertexes.get(vertex1), vertexes.get(vertex2), weight);
+    graph.addEdge(edge);
+  });
+  return graph;
 }
 
 run();

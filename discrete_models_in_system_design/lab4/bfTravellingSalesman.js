@@ -1,9 +1,3 @@
-/**
- * Get all possible paths
- * @param {GraphVertex} startVertex
- * @param {GraphVertex[][]} [paths]
- * @param {GraphVertex[]} [path]
- */
 function findAllPaths(startVertex, paths = [], path = []) {
   // Clone path.
   const currentPath = [...path];
@@ -40,12 +34,6 @@ function findAllPaths(startVertex, paths = [], path = []) {
   return paths;
 }
 
-/**
- * @param {number[][]} adjacencyMatrix
- * @param {object} verticesIndices
- * @param {GraphVertex[]} cycle
- * @return {number}
- */
 function getCycleWeight(adjacencyMatrix, verticesIndices, cycle) {
   let weight = 0;
 
@@ -60,12 +48,6 @@ function getCycleWeight(adjacencyMatrix, verticesIndices, cycle) {
   return weight;
 }
 
-/**
- * BRUTE FORCE approach to solve Traveling Salesman Problem.
- *
- * @param {Graph} graph
- * @return {GraphVertex[]}
- */
 function bfTravellingSalesman(graph) {
   // Pick starting point from where we will traverse the graph.
   const startVertex = graph.getAllVertices()[0];
@@ -76,7 +58,6 @@ function bfTravellingSalesman(graph) {
 
   // Filter out paths that are not cycles.
   const allPossibleCycles = allPossiblePaths.filter((path) => {
-    /** @var {GraphVertex} */
     const lastVertex = path[path.length - 1];
     const lastVertexNeighbors = lastVertex.getNeighbors();
 
