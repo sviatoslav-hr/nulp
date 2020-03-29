@@ -1,24 +1,14 @@
-const LinkedListNode = require('./LinkedListNode');
-const Comparator = require('./Comparator');
+const { LinkedListNode, Comparator } = require('./index');
 
 class LinkedList {
-  /**
-   * @param {Function} [comparatorFunction]
-   */
   constructor(comparatorFunction) {
-    /** @var LinkedListNode */
     this.head = null;
 
-    /** @var LinkedListNode */
     this.tail = null;
 
     this.compare = new Comparator(comparatorFunction);
   }
 
-  /**
-   * @param {*} value
-   * @return {LinkedList}
-   */
   prepend(value) {
     // Make new node to be a head.
     const newNode = new LinkedListNode(value, this.head);
@@ -32,10 +22,6 @@ class LinkedList {
     return this;
   }
 
-  /**
-   * @param {*} value
-   * @return {LinkedList}
-   */
   append(value) {
     const newNode = new LinkedListNode(value);
 
@@ -54,10 +40,6 @@ class LinkedList {
     return this;
   }
 
-  /**
-   * @param {*} value
-   * @return {LinkedListNode}
-   */
   delete(value) {
     if (!this.head) {
       return null;
@@ -94,12 +76,6 @@ class LinkedList {
     return deletedNode;
   }
 
-  /**
-   * @param {Object} findParams
-   * @param {*} findParams.value
-   * @param {function} [findParams.callback]
-   * @return {LinkedListNode}
-   */
   find({ value = undefined, callback = undefined }) {
     if (!this.head) {
       return null;
@@ -124,9 +100,6 @@ class LinkedList {
     return null;
   }
 
-  /**
-   * @return {LinkedListNode}
-   */
   deleteTail() {
     const deletedTail = this.tail;
 
@@ -155,9 +128,6 @@ class LinkedList {
     return deletedTail;
   }
 
-  /**
-   * @return {LinkedListNode}
-   */
   deleteHead() {
     if (!this.head) {
       return null;
@@ -175,19 +145,12 @@ class LinkedList {
     return deletedHead;
   }
 
-  /**
-   * @param {*[]} values - Array of values that need to be converted to linked list.
-   * @return {LinkedList}
-   */
   fromArray(values) {
     values.forEach(value => this.append(value));
 
     return this;
   }
 
-  /**
-   * @return {LinkedListNode[]}
-   */
   toArray() {
     const nodes = [];
 
@@ -200,18 +163,10 @@ class LinkedList {
     return nodes;
   }
 
-  /**
-   * @param {function} [callback]
-   * @return {string}
-   */
   toString(callback) {
     return this.toArray().map(node => node.toString(callback)).toString();
   }
 
-  /**
-   * Reverse a linked list.
-   * @returns {LinkedList}
-   */
   reverse() {
     let currNode = this.head;
     let prevNode = null;

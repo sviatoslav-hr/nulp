@@ -1,19 +1,13 @@
-const depthFirstSearch = require('../depthFirstSearch');
+const depthFirstSearch = require('../depth-first-search');
 
-/**
- * Helper class for visited vertex metadata.
- */
+// Helper class for visited vertex metadata.
 class VisitMetadata {
-  constructor({ discoveryTime, lowDiscoveryTime }) {
+  constructor({discoveryTime, lowDiscoveryTime}) {
     this.discoveryTime = discoveryTime;
     this.lowDiscoveryTime = lowDiscoveryTime;
   }
 }
 
-/**
- * @param {Graph} graph
- * @return {Object}
- */
 function graphBridges(graph) {
   // Set of vertices we've already visited during DFS.
   const visitedSet = {};
@@ -28,10 +22,7 @@ function graphBridges(graph) {
   const startVertex = graph.getAllVertices()[0];
 
   const dfsCallbacks = {
-    /**
-     * @param {GraphVertex} currentVertex
-     */
-    enterVertex: ({ currentVertex }) => {
+    enterVertex: ({currentVertex}) => {
       // Tick discovery time.
       discoveryTime += 1;
 
@@ -41,11 +32,7 @@ function graphBridges(graph) {
         lowDiscoveryTime: discoveryTime,
       });
     },
-    /**
-     * @param {GraphVertex} currentVertex
-     * @param {GraphVertex} previousVertex
-     */
-    leaveVertex: ({ currentVertex, previousVertex }) => {
+    leaveVertex: ({currentVertex, previousVertex}) => {
       if (previousVertex === null) {
         // Don't do anything for the root vertex if it is already current (not previous one).
         return;
@@ -55,10 +42,6 @@ function graphBridges(graph) {
       visitedSet[currentVertex.getKey()].lowDiscoveryTime = currentVertex.getNeighbors()
         .filter(earlyNeighbor => earlyNeighbor.getKey() !== previousVertex.getKey())
         .reduce(
-          /**
-           * @param {number} lowestDiscoveryTime
-           * @param {GraphVertex} neighbor
-           */
           (lowestDiscoveryTime, neighbor) => {
             const neighborLowTime = visitedSet[neighbor.getKey()].lowDiscoveryTime;
             return neighborLowTime < lowestDiscoveryTime ? neighborLowTime : lowestDiscoveryTime;
@@ -83,7 +66,7 @@ function graphBridges(graph) {
         bridges[bridge.getKey()] = bridge;
       }
     },
-    allowTraversal: ({ nextVertex }) => {
+    allowTraversal: ({nextVertex}) => {
       return !visitedSet[nextVertex.getKey()];
     },
   };

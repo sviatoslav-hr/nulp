@@ -1,11 +1,5 @@
-const graphBridges = require('./graph/graphBridges');
+const { graphBridges } = require('./graph');
 
-/**
- * Fleury's algorithm of finding Eulerian Path (visit all graph edges exactly once).
- *
- * @param {Graph} graph
- * @return {GraphVertex[]}
- */
 function eulerianPath(graph) {
   const eulerianPathVertices = [];
 
@@ -22,7 +16,6 @@ function eulerianPath(graph) {
   });
 
   // Detect whether graph contains Eulerian Circuit or Eulerian Path or none of them.
-  /** @params {GraphVertex} vertex */
   graph.getAllVertices().forEach((vertex) => {
     if (vertex.getDegree() % 2) {
       oddRankVertices[vertex.getKey()] = vertex;
@@ -68,7 +61,6 @@ function eulerianPath(graph) {
 
     // Peek the next edge to delete from graph.
     const currentEdges = currentVertex.getEdges();
-    /** @var {GraphEdge} edgeToDelete */
     let edgeToDelete = null;
     if (currentEdges.length === 1) {
       // If there is only one edge left we need to peek it.

@@ -1,57 +1,32 @@
 class Graph {
-  /**
-   * @param {boolean} isDirected
-   */
   constructor(isDirected = false) {
     this.vertices = {};
     this.edges = {};
     this.isDirected = isDirected;
   }
 
-  /**
-   * @param {GraphVertex} newVertex
-   * @returns {Graph}
-   */
   addVertex(newVertex) {
     this.vertices[newVertex.getKey()] = newVertex;
 
     return this;
   }
 
-  /**
-   * @param {string} vertexKey
-   * @returns GraphVertex
-   */
   getVertexByKey(vertexKey) {
     return this.vertices[vertexKey];
   }
 
-  /**
-   * @param {GraphVertex} vertex
-   * @returns {GraphVertex[]}
-   */
   getNeighbors(vertex) {
     return vertex.getNeighbors();
   }
 
-  /**
-   * @return {GraphVertex[]}
-   */
   getAllVertices() {
     return Object.values(this.vertices);
   }
 
-  /**
-   * @return {GraphEdge[]}
-   */
   getAllEdges() {
     return Object.values(this.edges);
   }
 
-  /**
-   * @param {GraphEdge} edge
-   * @returns {Graph}
-   */
   addEdge(edge) {
     // Try to find and end start vertices.
     let startVertex = this.getVertexByKey(edge.startVertex.getKey());
@@ -89,9 +64,6 @@ class Graph {
     return this;
   }
 
-  /**
-   * @param {GraphEdge} edge
-   */
   deleteEdge(edge) {
     // Delete edge from the list of edges.
     if (this.edges[edge.getKey()]) {
@@ -108,11 +80,6 @@ class Graph {
     endVertex.deleteEdge(edge);
   }
 
-  /**
-   * @param {GraphVertex} startVertex
-   * @param {GraphVertex} endVertex
-   * @return {(GraphEdge|null)}
-   */
   findEdge(startVertex, endVertex) {
     const vertex = this.getVertexByKey(startVertex.getKey());
 
@@ -123,21 +90,13 @@ class Graph {
     return vertex.findEdge(endVertex);
   }
 
-  /**
-   * @return {number}
-   */
   getWeight() {
     return this.getAllEdges().reduce((weight, graphEdge) => {
       return weight + graphEdge.weight;
     }, 0);
   }
 
-  /**
-   * Reverse all the edges in directed graph.
-   * @return {Graph}
-   */
   reverse() {
-    /** @param {GraphEdge} edge */
     this.getAllEdges().forEach((edge) => {
       // Delete straight edge from graph and from vertices.
       this.deleteEdge(edge);
@@ -152,9 +111,6 @@ class Graph {
     return this;
   }
 
-  /**
-   * @return {object}
-   */
   getVerticesIndices() {
     const verticesIndices = {};
     this.getAllVertices().forEach((vertex, index) => {
@@ -164,9 +120,6 @@ class Graph {
     return verticesIndices;
   }
 
-  /**
-   * @return {*[][]}
-   */
   getAdjacencyMatrix() {
     const vertices = this.getAllVertices();
     const verticesIndices = this.getVerticesIndices();
@@ -188,9 +141,6 @@ class Graph {
     return adjacencyMatrix;
   }
 
-  /**
-   * @return {string}
-   */
   toString() {
     return Object.keys(this.vertices).toString();
   }
