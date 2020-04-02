@@ -48,7 +48,7 @@ function getCycleWeight(adjacencyMatrix, verticesIndices, cycle) {
   return weight;
 }
 
-function bfTravellingSalesman(graph) {
+function travellingSalesman(graph) {
   // Pick starting point from where we will traverse the graph.
   const startVertex = graph.getAllVertices()[0];
 
@@ -84,4 +84,4 @@ function bfTravellingSalesman(graph) {
   return salesmanPath;
 }
 
-module.exports = bfTravellingSalesman;
+module.exports = travellingSalesman;
