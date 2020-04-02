@@ -1,4 +1,4 @@
-const LinkedList = require('../utils/linked-list');
+const LinkedList = require('../../lab2/utils/linked-list');
 
 class GraphVertex {
   constructor(value) {

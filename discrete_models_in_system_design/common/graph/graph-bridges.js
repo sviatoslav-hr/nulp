@@ -1,4 +1,4 @@
-const depthFirstSearch = require('../depth-first-search');
+const depthFirstSearch = require('../../lab2/depth-first-search');
 
 // Helper class for visited vertex metadata.
 class VisitMetadata {

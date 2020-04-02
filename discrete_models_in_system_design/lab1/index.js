@@ -1,4 +1,4 @@
-const INIT_DATA = require('./data');
+const INIT_DATA = require('../common/data');
 const { Edge, Graph } = require('./graph');
 const KruskalMST = require('./kruskal');
 
