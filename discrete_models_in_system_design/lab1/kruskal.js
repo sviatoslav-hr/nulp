@@ -3,8 +3,7 @@ class KruskalMST {
   constructor(graph) {
     this.graph = graph;
     this.queue = [];
-    this.included = [];
-    this.excluded = [];
+    this.includedEdges = [];
   }
 
   find() {
@@ -15,18 +14,16 @@ class KruskalMST {
       let edge = this.queue.shift();
 
       if (!this._isLooped(edge)) {
-        this.included.push(edge);
-      } else {
-        this.excluded.push(edge);
+        this.includedEdges.push(edge);
       }
     }
-    return this.included.length === this.graph.points - 1
-      ? this.included.map(value => value.toString()).join(' => ')
+    return this.includedEdges.length === this.graph.pointsSize - 1
+      ? this.includedEdges.map(value => value.toString()).join(' => ')
       : [];
   }
 
   _isLooped(edge, targetEdge = edge, visited = [], targetPoint = undefined,) {
-    const includedUnvisitedAdjacentEdges = this.included
+    const includedUnvisitedAdjacentEdges = this.includedEdges
       .filter(value => edge.isAdjacent(value) && !visited.includes(value));
     if (targetPoint && edge.includesPoint(targetPoint.id)) {
       return true;
@@ -36,11 +33,13 @@ class KruskalMST {
       let poppedEdge = includedUnvisitedAdjacentEdges.pop();
       if (edge === targetEdge) {
         targetPoint = edge.getUncommonPoint(poppedEdge);
+      } else if (poppedEdge.includesPoint(targetPoint.id)) {
+        return true;
       }
       visited.push(poppedEdge);
       const nextPoint = poppedEdge.getUncommonPoint(edge);
       let filtered = poppedEdge.adjacentEdges
-        .filter(value => this.included.includes(value) && value.includesPoint(nextPoint.id));
+        .filter(value => this.includedEdges.includes(value) && value.includesPoint(nextPoint.id));
       for (const adjacentEdge of filtered) {
         if (this._isLooped(adjacentEdge, targetEdge, [...visited], targetPoint)) {
           return true;

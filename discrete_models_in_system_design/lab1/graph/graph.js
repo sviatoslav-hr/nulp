@@ -26,7 +26,7 @@ class Graph {
     this.edges.push(edge);
   }
 
-  get points() {
+  get pointsSize() {
     return this.pointsMap.size;
   }
 
