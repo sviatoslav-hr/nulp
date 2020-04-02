@@ -1,5 +1,5 @@
-const {Edge, Flow, Graph} = require('./graph');
-const data = require('./data');
+const { Edge, Flow, Graph } = require('./graph');
+const data = require('../common/data');
 
 function start(graph = new Graph(), flows = []) {
   const startPoint = graph.getStartPoint();
@@ -42,8 +42,8 @@ function start(graph = new Graph(), flows = []) {
     }
   }
 
-  let {weight: minWeight} = flow.edges.reduce((acc, cur) =>
-    ({weight: Math.min(acc.weight, cur.weight)}), {weight: Number.MAX_SAFE_INTEGER});
+  let { weight: minWeight } = flow.edges.reduce((acc, cur) =>
+    ({ weight: Math.min(acc.weight, cur.weight) }), { weight: Number.MAX_SAFE_INTEGER });
 
   flow.weight = minWeight;
 
@@ -59,8 +59,8 @@ const flows = [];
 const results = start(gr, flows);
 printResults(results);
 
-const {weight: totalWeight} = flows.reduce((acc, cur) =>
-  ({weight: acc.weight + cur.weight}), {weight: 0});
+const { weight: totalWeight } = flows.reduce((acc, cur) =>
+  ({ weight: acc.weight + cur.weight }), { weight: 0 });
 
 console.log('totalWeight', totalWeight);
 
