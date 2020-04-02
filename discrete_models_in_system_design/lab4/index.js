@@ -1,8 +1,9 @@
-const { readGraph } = require('../common/utils');
+const { readGraph, Edge } = require('../common');
 const bfTravellingSalesman = require('./travelling-salesman');
 
 function run() {
   const graph = readGraph();
+  madeFullGraph(graph);
 
   const salesmanPath = bfTravellingSalesman(graph);
 
@@ -33,6 +34,21 @@ function findTotalWeight(graphVertices) {
     }
   }
 }
+
+function madeFullGraph(graph) {
+  Object.keys(graph.vertices).forEach(key => {
+    Object.keys(graph.vertices).forEach(otherKey => {
+      if (key !== otherKey) {
+        const vertex = graph.vertices[key];
+        const otherVertex = graph.vertices[otherKey];
+        if (!findCommonEdge(vertex, otherVertex)) {
+          graph.addEdge(new Edge(vertex, otherVertex, Number.MAX_SAFE_INTEGER));
+        }
+      }
+    })
+  })
+}
+
 
 function findCommonEdge(vertex, otherVertex) {
   let edge = vertex.edges.head;
